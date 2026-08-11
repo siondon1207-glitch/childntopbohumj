@@ -1,23 +1,854 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+   <style>
+        /* CSS 변수를 활용한 다채롭고 부드러운 파스텔톤 색감 적용 */
+        :root {
+            --primary-color: #e06d72; /* 부드러운 코랄 핑크 */
+            --primary-hover: #cb5a5e;
+            --secondary-color: #88a47c; /* 차분한 세이지 그린 */
+            --bg-color: #fefcfb; /* 따뜻한 크림 아이보리 */
+            --card-bg: #ffffff;
+            --text-main: #2f2e3a; /* 진한 차콜 그레이 */
+            --text-muted: #6e6d7a;
+            --border-color: #ebd9d2; /* 연한 베이지 브라운 */
+            --highlight-bg: #fdf5f2; /* 연한 코랄 핑크 틴트 */
+            --accent-yellow: #fef7d9;
+        }
+
+        /* 기본 레이아웃 및 웹 폰트 설정 */
+        body {
+            font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            line-height: 1.9;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* 헤더 디자인: 부드러운 그라디언트와 명확한 시각적 계층 */
+        header {
+            background: linear-gradient(135deg, #f7dcd9 0%, #f3e5e8 100%);
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 24px rgba(224, 109, 114, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.6rem;
+            color: var(--primary-color);
+            margin: 0 0 15px 0;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.3;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* 메인 내비게이션 */
+        nav {
+            margin-bottom: 40px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+        }
+
+        nav ul li {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 20px 15px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--highlight-bg);
+            color: var(--primary-color);
+        }
+
+        /* 2단 반응형 레이아웃 구조 */
+        .content-wrap {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .main-content {
+            flex: 3;
+            min-width: 60%;
+        }
+
+        .sidebar {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* 카드 및 사이드바 컴포넌트 */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 6px 18px rgba(224, 109, 114, 0.03);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.02);
+        }
+
+        .sidebar-card h2 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* 서브 메뉴 스타일 */
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sub-menu li {
+            margin-bottom: 12px;
+        }
+
+        .sub-menu li a {
+            display: block;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .sub-menu li a:hover {
+            background-color: var(--highlight-bg);
+            color: var(--primary-color);
+            border-color: var(--border-color);
+            font-weight: 700;
+        }
+
+        /* 외부 신뢰성 링크 영역 */
+        .external-links h3 {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .external-links a {
+            display: block;
+            padding: 10px 12px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.2s ease;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .external-links a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* 타이포그래피 계층 구조 */
+        h2 {
+            font-size: 2.1rem;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-top: 45px;
+            margin-bottom: 25px;
+            font-weight: 800;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            color: var(--secondary-color);
+            margin-top: 35px;
+            margin-bottom: 18px;
+            border-left: 6px solid var(--secondary-color);
+            padding-left: 15px;
+            font-weight: 700;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            color: var(--text-main);
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 6px;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* 핵심 요약 및 강조 박스 */
+        .accent-block {
+            background-color: var(--highlight-bg);
+            border-left: 6px solid var(--primary-color);
+            padding: 25px;
+            border-radius: 4px 16px 16px 4px;
+            margin: 30px 0;
+            font-size: 1.05rem;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(224, 109, 114, 0.03);
+        }
+
+        .accent-block strong {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* 테이블 디자인 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--highlight-bg);
+            color: var(--text-main);
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #fdfcfb;
+        }
+
+        tbody tr:hover {
+            background-color: #faf3f1;
+        }
+
+        /* 순서 리스트 스타일 */
+        ol.step-list {
+            padding-left: 20px;
+            margin: 25px 0;
+        }
+
+        ol.step-list li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        ol.step-list li strong {
+            color: var(--primary-color);
+        }
+
+        /* 막대 그래프 형태의 시각적 컴포넌트 */
+        .graph-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .graph-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        .graph-row {
+            margin-bottom: 15px;
+        }
+
+        .graph-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .graph-bar-wrap {
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            height: 24px;
+            width: 100%;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .graph-bar {
+            background: linear-gradient(90deg, #f3cbd0 0%, var(--primary-color) 100%);
+            height: 100%;
+            border-radius: 8px;
+            transition: width 1s ease-in-out;
+        }
+
+        .graph-bar.green {
+            background: linear-gradient(90deg, #d3ebd2 0%, var(--secondary-color) 100%);
+        }
+
+        .graph-value {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        /* 체류 시간 증진을 위한 입력 폼 섹션 */
+        .interactive-section {
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px;
+            margin-top: 40px;
+            box-shadow: 0 4px 15px rgba(224, 109, 114, 0.04);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .form-group button {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 16px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 4px 10px rgba(224, 109, 114, 0.2);
+        }
+
+        .form-group button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* 계산 결과 영역 */
+        .calculator-result {
+            display: none;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .calculator-result h5 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* 검색 엔진 SEO 강조 텍스트 */
+        .seo-keyword {
+            color: var(--primary-color);
+            font-weight: 700;
+            border-bottom: 1px solid var(--primary-color);
+        }
+
+        /* 푸터 디자인 */
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* 반응형 스타일 조정 */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.9rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li a {
+                padding: 12px 10px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .content-wrap {
+                flex-direction: column;
+            }
+
+            .main-content, .sidebar {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
+
+    <!-- JSON-LD 구조화 데이터: 네이버 및 구글 웹마스터도구 AI 스니펫 최적화 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://finance.reliabledone.com/fetal-insurance-miscarriage"
+      },
+      "headline": "태아보험 유산 보장 및 환급 가이드: 2026년 최신 가격 및 비교 분석",
+      "description": "2026년 최신 태아보험 가입 후 유산 발생 시 보험료 환급 절차, 유산방지주사 실비 보상 가이드, 산모특약 및 유산위로금 담보 비교 등 예비부모를 위한 종합적 금융 정보 분석을 제공합니다.",
+      "image": [
+        "https://images.pexels.com/photos/7055925/pexels-photo-7055925.jpeg"
+      ],
+      "datePublished": "2026-08-11",
+      "dateModified": "2026-08-11",
+      "author": {
+        "@type": "Organization",
+        "name": "태아보험 전문 금융 컨설팅 센터"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "태아보험 전문 금융 컨설팅 센터",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://finance.reliabledone.com/logo.png"
+        }
+      }
+    }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 상단 헤더 영역 -->
+        <header>
+            <h1>태아보험 유산 보장 및 환급 가이드</h1>
+            <p>2026년 최신 보험 정책 분석과 연령별 가격 비교 및 산모특약 완벽 해설</p>
+        </header>
+
+        <!-- 상단 네비게이션 탭 -->
+        <nav>
+            <ul>
+                <li><a href="#section-intro">태아보험 개념</a></li>
+                <li><a href="#section-miscarriage">유산 시 환급 구조</a></li>
+                <li><a href="#section-injection">유산방지주사 실비</a></li>
+                <li><a href="#section-rider">산모특약 비교</a></li>
+                <li><a href="#section-calculator">예상 견적 계산기</a></li>
+            </ul>
+        </nav>
+
+        <!-- 본문 래퍼 -->
+        <div class="content-wrap">
+            
+            <!-- 왼쪽 메인 콘텐츠 영역 -->
+            <div class="main-content">
+                
+                <!-- 1. 개요 섹션 -->
+                <div class="card" id="section-intro">
+                    <h2>태아보험 가입과 유산 보장의 중요성</h2>
+                    <div class="accent-block">
+                        태아보험은 임산부가 임신 기간 중 가입하여 출생 직후 발생할 수 있는 신생아의 선천이상 질환, 저체중아 미숙아 인큐베이터 입원비, 신생아 황달 및 호흡곤란 치료비 등을 두루 보장하는 상품입니다. 그러나 안타깝게도 임신 유지 중 유산이라는 불상사가 발생할 수 있기에, 계약자들은 <strong>태아보험 유산</strong> 상황 시 납입했던 보험료가 환급되는지, 유산 예방을 위한 의료비 치료 지원은 얼마 동안 받을 수 있는지 꼼꼼하게 따져보아야 합니다.
+                    </div>
+                    <p>
+                        최근 결혼 평균 연령이 늦어짐에 따라 고령 임산부 비율이 급격히 증가하고 있습니다. 통계에 의하면 20대 임산부에 비해 30대 후반 및 40대 임산부의 자연유산 확률이 높은 경향이 나타납니다. 이에 맞춰 국내 대형 손해보험 및 생명보험 브랜드 기업들은 유산 시 기납입 보험료를 돌려주는 규정 외에도, 산모특약이라 불리는 모성자 특별약관을 통해 유산 위로금 및 진단비, 임신출산질환 입원의료비 담보 등을 보장하고 있습니다. 
+                    </p>
+                    <p>
+                        예비 부모들은 네이버 지식인이나 맘카페 등 온라인 채널을 통해 다양한 내돈내산 가입 후기를 접하지만, 복잡한 보험 설계와 과장된 사은품 및 현금지원 혜택 사이에서 가장 싼곳이나 제일 저렴한곳을 찾아내기 쉽지 않습니다. 2026년도에 출시된 신규 보험 상품들은 과거 세대의 단순 환급 수준을 넘어, 유산방지 치료비와 입원 일당을 폭넓게 지급하는 방향으로 진화하고 있습니다.
+                    </p>
+                </div>
+
+                <!-- 2. 유산 시 환급금 메커니즘 -->
+                <div class="card" id="section-miscarriage">
+                    <h2>태아보험 가입 후 유산 발생 시 환급 구조</h2>
+                    <p>
+                        태아보험에 가입하여 유지하는 중에 유산이 확정되면, 해당 보험계약은 피보험자 부재로 인하여 그 효력을 상실하게 됩니다. 즉, 아직 태어나지 않은 태아를 보장 대상으로 삼았던 특약들은 피보험자인 태아가 출생하지 못함에 따라 계약 목적 달성이 불가능해져 소멸 처리됩니다.
+                    </p>
+                    <p>
+                        이 경우 보험계약자가 지금까지 납입했던 보험료는 전액 혹은 일부가 규정에 따라 환급됩니다. 계약 후 30일 이내에 사고가 발생했다면 청약철회 제도를 통해 전액 환급 처리가 가능하며, 30일이 경과한 시점이라도 의사의 소견서나 유산진단서 등 공인된 증빙서류를 구비하여 제출하면 회사는 계약 소멸로 인한 기납입 보험료 환급 절차를 신속하게 진행합니다.
+                    </p>
+                    
+                    <h4>유산 원인 분류에 따른 주요 의학적 질병코드</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>의학적 진단 질병코드</th>
+                                <th>유산위로금 지급 여부</th>
+                                <th>비고</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>자연 유산</td>
+                                <td>O03</td>
+                                <td>지급 대상 포함</td>
+                                <td>의사 진단서 필수 첨부</td>
+                            </tr>
+                                                        <tr>
+                                <td>계류 유산</td>
+                                <td>O02.1</td>
+                                <td>지급 대상 포함</td>
+                                <td>가장 흔하게 발생하는 유형</td>
+                            </tr>
+                            <tr>
+                                <td>의학적 유산</td>
+                                <td>O04</td>
+                                <td>조건부 지급</td>
+                                <td>모자보건법 범위 내 허용 시</td>
+                            </tr>
+                            <tr>
+                                <td>자궁외 임신</td>
+                                <td>O00</td>
+                                <td>지급 대상 포함</td>
+                                <td>수술 필요 시 수술비 추가 청구 가능</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>
+                        여기서 주의해야 할 점은 순수하게 무해지환급형 상품을 장기 유지 목적으로 가입했는지, 혹은 30세 만기 또는 100세 만기 등으로 환급 설계 방식을 다르게 하였는지에 따라 환급되는 요금제 구조가 다소 달라질 수 있다는 점입니다. 일반적으로 유산 시에는 기납입 보험료가 해약환급금이 아닌 소멸 처리에 의한 전액 반환금 형식으로 처리되므로, 설계 과정에서 크게 불이익을 당하는 일은 발생하지 않습니다.
+                    </p>
+                </div>
+
+                <!-- 3. 유산방지주사와 실비 보장 관계 -->
+                <div class="card" id="section-injection">
+                    <h2>유산방지주사 투여 및 실손의료비 청구 가능 여부</h2>
+                    <p>
+                        임신 초기에 조기진통이 오거나 자궁경부 무력증, 혹은 피비침이나 갈색혈 증상으로 인해 유산 가능성이 높을 때, 산부인과에서는 유산방지주사라 불리는 프로게스테론 성분의 주사제(예: 타이유, 유트로게스탄)나 자궁수축억제제(예: 아토시반, 트랙토실)를 주로 처방합니다.
+                    </p>
+                    <p>
+                        기본적으로 산모 개인이 평소에 가입하고 있던 일반 실손의료비(실비) 보험은 약관상 임신, 출산 및 이와 관련된 질환(질병코드 O00 ~ O99)에서 발생하는 치료비를 보상하지 않는 대표적인 비보장 항목으로 규정해 두고 있습니다. 따라서 일반 실비에 청구했을 때는 원칙적으로 부지급 결정이 내려집니다.
+                    </p>
+                    <p>
+                        하지만 태아보험에 동반하여 가입하는 <strong>임신출산질환 실손입원의료비</strong> 특약 혹은 산모 특약에 가입되어 있는 경우에는 이야기가 달라집니다. 본 특약은 기존 실손보험에서 전면 제외되었던 유산 방지 목적의 입원 치료비와 수술비, 주사 치료비를 보상하기 위해 설계된 전용 상품입니다. 통상적으로 입원 치료비의 최대 80퍼센트 수준에서 최고 1,000만 원 한도까지 치료 비용을 실비 형식으로 돌려받을 수 있어 고가 비급여 주사 치료비를 아끼는 데 큰 장점이 있습니다.
+                    </p>
+                    
+                    <div class="accent-block">
+                        <strong>유산방지주사 처방 시 가입 전 고지의무 주의사항</strong><br>
+                        태아보험에 가입하기 이전에 산부인과를 방문하여 유산방지주사 처방을 단 1회라도 받았거나, 관련 약물을 처방받아 복용한 이력이 있다면 이는 보험사에 알려야 하는 중요 사항에 해당합니다. 이를 무시하고 가입을 진행했다가 나중에 청구할 시 고지의무 위반으로 인해 강제 계약해지나 보장 제한 불이익을 당할 위험이 큽니다. 따라서 병원 치료 전에 반드시 전문가의 컨설팅을 받으셔야 합니다.
+                    </div>
+                </div>
+
+                <!-- 4. 산모특약 및 유산위로금 비교 -->
+                <div class="card" id="section-rider">
+                    <h2>산모특약의 종류와 유산 위로금 비교 분석</h2>
+                    <p>
+                        태아보험 가입 시 주계약인 아기 보장 외에 부가적으로 신청할 수 있는 산모특약은 첫 가입 달에만 일시납으로 단 한 번의 보험료를 결제하면 임신 기간과 출산 직후까지 산모 본인에게 필요한 합병증 예방 및 유산 치료 비용을 다각도로 보충받는 우수한 상품입니다.
+                    </p>
+                    <p>
+                        특히 유산위로금 특약의 경우, 자연유산이나 의학적으로 인정되는 유산(포상기태, 상세불명의 유산 등)으로 진단이 확정되었을 때 사전에 약정된 가입금액을 일시금으로 지급하는 위로금 성격을 띱니다. 상품 브랜드에 따라 10만 원에서 최대 50만 원 이상까지 지급 수준 차이점이 나타납니다.
+                    </p>
+
+                    <h4>연령대별 태아보험 평균 가입 요금제 및 예상 비용 비교</h4>
+                    <p>
+                        아래 데이터는 2026년 기준, 30세 만기 기본 환급형 설계안과 실손의료비를 세트로 결합하여 산출한 연령별 평균 계약 요금 및 예상 가격 자료입니다.
+                    </p>
+                    
+                    <div class="graph-container">
+                        <div class="graph-title">임산부 연령별 평균 월 납입 보험료 (실손보험 결합 기준)</div>
+                        
+                        <div class="graph-row">
+                            <div class="graph-label">20대 중후반 임산부 (평균 위험도 안정권)</div>
+                            <div class="graph-bar-wrap">
+                                <div class="graph-bar" style="width: 65%;"></div>
+                            </div>
+                            <div class="graph-value">월 평균 약 48,000원 선</div>
+                        </div>
+
+                        <div class="graph-row">
+                            <div class="graph-label">30대 초중반 임산부 (표준 연령대 다수 가입)</div>
+                            <div class="graph-bar-wrap">
+                                <div class="graph-bar" style="width: 78%;"></div>
+                            </div>
+                            <div class="graph-value">월 평균 약 55,000원 선</div>
+                        </div>
+
+                        <div class="graph-row">
+                            <div class="graph-label">30대 후반 ~ 40대 임산부 (고위험 심사 대상군)</div>
+                            <div class="graph-bar-wrap">
+                                <div class="graph-bar green" style="width: 95%;"></div>
+                            </div>
+                            <div class="graph-value">월 평균 약 68,000원 선 (산모특약 다수 포함)</div>
+                        </div>
+                    </div>
+
+                    <p>
+                        40대 및 30대 후반 고령 임산부의 경우 유산 관련 추가 특약 배치가 필요하고, 고혈압이나 당뇨 등 임신 합병증 발생 확률을 고려한 선별검사(니프티 및 양수검사) 비용 지원 등 풍성한 보장이 들어가기 때문에 기본 예상 견적 비용이 20대 산모에 비해 비교적 두껍게 설정됩니다.
+                    </p>
+                </div>
+
+                <!-- 5. 체류시간 증진을 위한 실시간 자가 진단 및 가상 계산기 프로그램 -->
+                <div class="card interactive-section" id="section-calculator">
+                    <h2>실시간 태아보험 및 유산 리스크 계산기</h2>
+                    <p>
+                        산모의 기본 건강 지표 및 주차 정보를 가볍게 입력하시면, 2026년 국내 대형 보험사 기준의 예상 가입 금액대와 유산 발생 시 대략적인 환급 비율, 필요 산모특약 종류를 자동으로 매칭하여 알려드립니다.
+                    </p>
+                    
+                    <div class="form-group">
+                        <label for="calc-age">산모 현재 연령 (만 나이 입력)</label>
+                        <input type="number" id="calc-age" placeholder="예: 32" min="20" max="50">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calc-weeks">현재 임신 주차 (주 단위)</label>
+                        <select id="calc-weeks">
+                            <option value="12">12주 미만 (초기 기형아 검사 전 권장기)</option>
+                            <option value="16">12주 이상 ~ 16주 이하 (안정 가입기)</option>
+                            <option value="22">17주 이상 ~ 22주 이하 (가입 마지노선)</option>
+                            <option value="23">22주 초과 (태아특약 가입 불가능 구간)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calc-injection">유산방지주사 또는 처방 진료 이력 유무</label>
+                        <select id="calc-injection">
+                            <option value="no">치료 또는 처방 이력 없음 (정상 무심사 패스)</option>
+                            <option value="yes">1회 이상 주사 투여 또는 약제 복용함 (고지 심사 필요)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calc-plan">원하는 만기 및 보장 설계 방향</label>
+                        <select id="calc-plan">
+                            <option value="basic">가성비 위주 30세 만기 다이렉트형</option>
+                            <option value="premium">든든한 평생 보장 100세 만기형</option>
+                            <option value="maternal">산모 보장 및 유산 위로금 집중 보강형</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" onclick="calculateFetalPremium()">실시간 견적 및 권장 설계 분석하기</button>
+                    </div>
+
+                    <div class="calculator-result" id="calc-result-box">
+                        <h5>분석 및 실시간 컨설팅 제언 결과</h5>
+                        <p id="calc-result-text"></p>
+                    </div>
+                </div>
+
+                <!-- 6. 온라인 커뮤니티 트렌드 및 최적화 가입법 -->
+                <div class="card">
+                    <h2>온라인 커뮤니티 내돈내산 후기와 최저가 가입 요령</h2>
+                    <p>
+                        많은 예비 부모들이 디시인사이드, 보배드림, 에펨코리아(펨코) 같은 주요 남초 및 여초 성향의 대형 온라인 정보 사이트에서 어떤 좌표를 통해 가입하는 것이 지원금 혜택을 극대화할 수 있는지 탐색합니다. 오프라인 지인을 통한 가입 방식보다 인터넷 다이렉트 어플이나 토스 및 카카오톡 금융 탭 연동을 통한 온라인 가입 방식이 중간 마케팅 수수료를 절감하여 소비자에게 사은품이나 상품권 혜택을 유용하게 돌려준다는 입소문이 퍼져 있습니다.
+                    </p>
+                    <p>
+                        그러나 지나치게 높은 고가의 현금지원만을 약속하는 가입 성지나 불법 페이백 광고는 실제 청구 단계에서 대리점이 폐업하거나 사은품을 지급하지 않고 잠적하는 악성 사태로 이어질 수 있으므로 유의해야 합니다. 진정으로 똑똑한 소비자는 설계비나 무해지환급 구조를 명쾌하게 비교 설명해 주는 공인된 전문 업체를 골라 합리적인 저렴한곳 위주로 최종 가입하는 편입니다.
+                    </p>
+                    <p>
+                        최근에는 챗지피티, 제미나이와 같은 지능형 인공지능 도구를 활용하여 각 손해보험 브랜드 간의 장단점을 명확하게 조망하고, 각 산모 맞춤형 담보를 선별 추출하는 지능형 솔루션도 적극 도입되고 있습니다. 인공지능이 제시하는 최적의 포트폴리오를 기반으로 공인 상담사와 전화를 나누는 비대면 다이렉트 비교 신청 모델이 2026년 기준 업계 주류 비즈니스로 확립되었습니다.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- 오른쪽 사이드바 영역 -->
+            <div class="sidebar">
+                
+                <!-- 카테고리 바로가기 -->
+                <div class="sidebar-card">
+                    <h2>핵심 정보 목차</h2>
+                    <ul class="sub-menu">
+                        <li><a href="#section-intro">태아보험 개요</a></li>
+                        <li><a href="#section-miscarriage">유산 시 환급금 안내</a></li>
+                        <li><a href="#section-injection">유산방지주사 실비</a></li>
+                        <li><a href="#section-rider">산모특약 집중 분석</a></li>
+                        <li><a href="#section-calculator">모의 견적 계산기</a></li>
+                    </ul>
+                </div>
+
+                <!-- 외부 공인 신뢰성 사이트 연계 -->
+                <div class="sidebar-card external-links">
+                    <h2>신뢰성 있는 정보 원천</h2>
+                    <a href="https://childntopbohumk.directreliable.com" target="_blank">금융 정책 동향 및 소비자 트렌드 블로그</a>
+                    <a href="https://namu.wiki/w/%ED%83%9C%EC%95%84%EB%B3%B4%ED%97%98" target="_blank">나무위키: 태아보험의 정의와 발전사</a>
+                    <a href="https://www.nhis.or.kr" target="_blank">국민건강보험공단: 임신 출산 바우처 안내</a>
+                    <a href="https://www.mohw.go.kr" target="_blank">보건복지부: 2026년도 모자보건 정책 가이드</a>
+                </div>
+
+                <!-- FAQ 요약 카드 -->
+                <div class="sidebar-card">
+                    <h2>자주 묻는 질문 요약</h2>
+                    <h4 style="margin-top:0;">Q. 유산 후 가입 금액을 바로 돌려받을 수 있나요?</h4>
+                    <p style="font-size:0.9rem; margin-bottom:15px;">
+                        네, 병원에서 발급한 유산진단서나 사산확인서 등 관련 증빙을 보험사에 제출하시면 소멸 절차를 거쳐 기납입금을 신속히 환급받을 수 있습니다.
+                    </p>
+                    <h4>Q. 유산방지주사를 맞은 뒤에는 가입이 거절되나요?</h4>
+                    <p style="font-size:0.9rem; margin-bottom:0;">
+                        즉각적인 거절은 아닙니다. 투여 횟수, 경과 기간 및 임신 초기 검사 소견을 종합 검토하여 조건부 가입이 진행될 수 있으므로 고지의무를 준수해야 합니다.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+      
+    </div>
+
+    <!-- 계산기 로직 자바스크립트 구현 -->
+    <script>
+        function calculateFetalPremium() {
+            // 입력값 취득
+            const ageInput = document.getElementById('calc-age').value;
+            const weeks = document.getElementById('calc-weeks').value;
+            const injection = document.getElementById('calc-injection').value;
+            const plan = document.getElementById('calc-plan').value;
+
+            // 엘리먼트 타겟팅
+            const resultBox = document.getElementById('calc-result-box');
+            const resultText = document.getElementById('calc-result-text');
+
+            // 기본 예외 처리
+            if (!ageInput || ageInput < 20 || ageInput > 50) {
+                alert('만 나이를 정확하게 입력해 주세요. (입력 가능 범위: 20세 ~ 50세)');
+                return;
+            }
+
+            const age = parseInt(ageInput, 10);
+            let basePremium = 45000; // 기본 금액 세팅
+            let advice = '';
+            let riskLevel = '낮음';
+
+            // 연령별 요금 변동 로직
+            if (age >= 35 && age < 40) {
+                basePremium += 12000;
+                riskLevel = '보통 (고령임산부 초입)';
+            } else if (age >= 40) {
+                basePremium += 25000;
+                riskLevel = '높음 (집중 관리군)';
+            }
+
+            // 가입 시기 및 주차에 따른 설계 방향 분석
+            if (weeks === '23') {
+                advice += '현재 22주를 초과하여 선천성 기형 및 신생아 입원일당 등 일부 핵심 태아 특약의 신규 신청이 불가능한 시점입니다. 이에 따라 영유아기 질병 상해 치료와 산모를 위한 전용 질환 보장 플랜으로 정비하여 가격을 낮추는 방향을 추천해 드립니다. ';
+            } else if (weeks === '22') {
+                advice += '22주차는 태아특약 추가 마지노선입니다. 더 늦기 전에 오늘 중으로 모바일 어플 또는 고객센터 다이렉트 페이지를 통해 당일 가입을 시도하셔야 혜택 누락이 생기지 않습니다. ';
+            } else {
+                advice += '태아특약 신청에 아주 여유가 있고 최적화된 조건에 해당합니다. 1차 정밀 기형아 검사를 마친 시점에 맞춰 다양한 브랜드 설계를 한눈에 비교하신 후 결정을 권합니다. ';
+            }
+
+            // 주사 이력 유무에 따른 심사 진단
+            if (injection === 'yes') {
+                basePremium += 8000;
+                advice += '기존 유산방지주사 혹은 호르몬 주사제 투약 기록이 있으신 관계로 고지의무 가입 심사 대상에 들어갑니다. 바로 다이렉트 모바일로 진행하기보다는 전문 업체의 우회 조건부 컨설팅을 받는 방법을 강력히 권해 드립니다. ';
+            } else {
+                advice += '과거 주사 투약이나 피비침 증상 이력이 없으므로 별도의 서류 심사 절차 없이 깔끔하게 계약 승인이 날 가능성이 매우 높습니다. ';
+            }
+
+            // 플랜별 가격 가중치
+            let planName = '가성비 위주 다이렉트 플랜';
+            if (plan === 'premium') {
+                basePremium += 40000;
+                planName = '평생 안심 100세 만기 고급 플랜';
+            } else if (plan === 'maternal') {
+                basePremium += 15000;
+                planName = '산모 집중 케어 및 유산 위로금 집중 플랜';
+                advice += '해당 특약 추가 시 자궁외 임신 및 계류 유산 시 약관에 명시된 일정 금액의 진단 위로금을 든든히 보상받을 수 있어 정신적 재정적 상처 회복에 도움을 줍니다. ';
+            }
+
+            // 결과 텍스트 조합 및 노출
+            resultBox.style.display = 'block';
+            resultText.innerHTML = `
+                고객님의 맞춤 설계 분석에 의하면, <strong>만 ${age}세</strong> 산모님의 예상 유산 위험도는 <strong>[${riskLevel}]</strong> 단계에 위치해 있습니다.<br>
+                선택하신 [${planName}] 적용 시 2026년 평균 예상 보험 요금은 월 <strong>약 ${basePremium.toLocaleString()}원</strong> 선으로 예상됩니다.<br><br>
+                <strong>전문가 상담 제언:</strong><br>
+                ${advice}<br><br>
+                본 결과는 공인 보험 설계 규정을 단순 참조하여 만든 가상 예측 시뮬레이션입니다. 온라인 비교사이트나 각 브랜드 대표 스마트 앱 채널을 통해 신규 가입 상담을 정식 등록하시어 맞춤 정밀 견적을 받아보시기 바랍니다.
+            `;
+        }
+    </script>
+  
